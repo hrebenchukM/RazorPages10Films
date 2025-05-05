@@ -1,0 +1,67 @@
+﻿@* /ByYear *@
+@page "{handler?}"
+@model RazorPages10Films.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container py-5">
+    <div class="row g-4">
+        @foreach (var item in Model.Film)
+        {
+            <div class="col-md-4 col-lg-3 d-flex">
+                <div class="card h-100 bg-dark text-white">
+                    @* <img src="~/Images/ASP.NET Core MVC.png" /> *@
+                    <img src="@Html.DisplayFor(modelItem => item.Poster)" class="card-img-top" alt="@Html.DisplayFor(modelItem => item.Name)">
+                    <div class="card-body bg-dark text-white d-flex flex-column">
+                        <h5 class="card-title text-gradient">
+                            @Html.DisplayFor(modelItem => item.Name)
+                            </h5>
+
+                        <div class="d-flex justify-content-between mb-3 w-100" style="flex-wrap: wrap;">
+                            <div class="movie-info d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                <span class="ms-2">@Html.DisplayFor(modelItem => item.Maker)</span>
+                            </div>
+                            <div class="movie-info d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m22 8-6 4 6 4V8Z" />
+                                    <rect width="14" height="12" x="2" y="6" rx="2" ry="2" />
+                                </svg>
+                                <span class="ms-2">@Html.DisplayFor(modelItem => item.Genre.Name)</span>
+                            </div>
+                            <div class="movie-info d-flex align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                                    <line x1="16" x2="16" y1="2" y2="6" />
+                                    <line x1="8" x2="8" y1="2" y2="6" />
+                                    <line x1="3" x2="21" y1="10" y2="10" />
+                                </svg>
+                                <span class="ms-2">@Html.DisplayFor(modelItem => item.Year)</span>
+                            </div>
+                        </div>
+                        <p class="text-white mb-3">@Html.DisplayFor(modelItem => item.Description)</p>
+                        <div class="mt-auto">
+                         
+                            <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-primary w-100 rounded-3">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
