@@ -1,0 +1,47 @@
+﻿@page
+@model GuestbookRazorPages.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+
+@if (HttpContext.Session.GetString("Login") != "Guest")
+{
+    <div class="message-input-section mb-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form method="post">
+                    <textarea asp-for="Content" class="form-control mb-3" rows="3" placeholder="Write your message here..."></textarea>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-1"></i>Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="messages-container">
+    @foreach (var item in Model.Message)
+    {
+        <div class="message-card">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0">🌸 @item.User.Login</h5>
+                        </div>
+                        <small class="text-muted"><i class="far fa-clock me-1"></i>@item.Date.ToString("g")</small>
+                    </div>
+                    <p class="card-text">@item.Content</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

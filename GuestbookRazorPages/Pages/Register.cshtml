@@ -1,0 +1,73 @@
+﻿@page
+@model GuestbookRazorPages.Pages.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center min-vh-100 align-items-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Registration</h2>
+
+                    @if (Request.Cookies["login"] == null || HttpContext.Session.GetString("login") == null)
+                    {
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="mb-4">
+                                <label asp-for="User.FirstName" class="form-label"></label>
+                                <input asp-for="User.FirstName" class="form-control" />
+                                <span asp-validation-for="User.FirstName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="User.LastName" class="form-label"></label>
+                                <input asp-for="User.LastName" class="form-control" />
+                                <span asp-validation-for="User.LastName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="User.Login" class="form-label"></label>
+                                <input asp-for="User.Login" class="form-control" />
+                                <span asp-validation-for="User.Login" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="User.Password" class="form-label"></label>
+                                <input asp-for="User.Password" class="form-control" type="password" />
+                                <span asp-validation-for="User.Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="PasswordConfirm" class="form-label"></label>
+                                <input asp-for="PasswordConfirm" class="form-control" type="password" />
+                                <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <input type="submit" value="Check in" class="btn btn-primary btn-lg" />
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info">
+                            Вводить логин и пароль уже не нужно!
+                        </div>
+                        <a asp-page="./Index" class="btn btn-link">На главную страницу</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

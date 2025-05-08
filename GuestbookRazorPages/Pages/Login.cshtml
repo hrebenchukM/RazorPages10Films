@@ -1,0 +1,61 @@
+﻿@page
+@model GuestbookRazorPages.Pages.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@if (Request.Cookies["login"] == null && HttpContext.Session.GetString("login") == null)
+{
+    <div class="container">
+        <div class="row justify-content-center min-vh-100 align-items-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-body p-5">
+                        <h2 class="text-center mb-4">Authorization</h2>
+
+                        <form method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="mb-4">
+                                <label asp-for="Login" class="form-label"></label>
+                                <input asp-for="Login" class="form-control" />
+                                <span asp-validation-for="Login" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4">
+                                <label asp-for="Password" class="form-label"></label>
+                                <input asp-for="Password" class="form-control" type="password" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-4 form-check">
+                                <input asp-for="RememberMe" class="form-check-input" />
+                                <label asp-for="RememberMe" class="form-check-label">Запомнить меня</label>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <input type="submit" value="Logon" class="btn btn-primary btn-lg" />
+                                <a class="btn btn-outline-primary me-2" asp-page="./LoginAsGuest">Login as Guest</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center mt-5">
+        <p>Вводить логин и пароль уже не нужно!</p>
+        <a asp-page="Index" class="btn btn-link">На главную</a>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
